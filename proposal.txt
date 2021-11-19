@@ -1,0 +1,20 @@
+Stock Tracker Springboard Capstone one
+Project Proposal
+
+	This application that is yet to be named will use the free Alpha vantage Api to allow users to track their favorite stocks. Users will have to make an account and then they will have access to features like stock tracking and compound interest calculations. This application will also use the python email library to send email updates about stocks that a user selects. I will intergrade the Twilio API as an option but do to pricing concerns there can only be so many SMS texts sent out before a user would need to pay.
+
+	What is listed above will be the “MVP” or Minimal Viable Product. More features may be added as time allows. The technologies used will be as listed: 
+1.Python
+	a.	  Flask
+	b.	jinjia
+	c.	WTForms 
+	d.	 SQLAlchemy 
+	e.	 Bcrypt,
+2. JS (vanilla)
+	a.	 Axios
+3.PostgresSQL
+4.Heroku  
+
+This application will appeal to people with interests in tracking and projecting their assets values. With an emphasis on planning and features that may help track when to purchase or buy. Stretch goal would include adding more types of tracking. 
+
+My database schema will be simple and include a User table and then a stocks to be tracked table. User table will contain User details and the stock to be tracked table will tell my app what to display and when to reach out to a user or remind a user to buy/sell. If time allows, I will create a crypto table that will also track peoples crypto investments.
