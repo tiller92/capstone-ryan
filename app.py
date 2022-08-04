@@ -28,25 +28,20 @@ def home_page():
     print(users[0].watched)
     form = UserLogin()
     if form.validate_on_submit():
-        print(form.data)
+        print(form.data['username'])
+        user = Users.query.filter_by(username=form.data['username']).first_or_404()
+        print(user)
+        user_id = user.id
         
-        return redirect('/users/1')
+        return redirect(f'/users/{user.username}')
     return render_template('home.html', form=form)
     
 
-## need to make a route that validated the user and then redirects to the user home page
-@app.route('/api/validate')
-def get_and_validate_user(username):
-    print()
-    # user = Users.query.filter_by(username=username)
-    # print(user)
-    
-    return redirect('/')
 
-@app.route('/users/<int:user_id>' ,methods=['POST', 'GET'])
-def user_page(user_id):
-    print(user_id, 'user ID')
-    return render_template('/users/userHome.html')
+@app.route('/users/<username>' ,methods=['POST', 'GET'])
+def user_page(username):
+    print(username, 'username')
+    return render_template('/users/userHome.html', username=username)
 
 @app.route('/api/stockwatcher')
 def api_call():
