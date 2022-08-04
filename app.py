@@ -29,6 +29,7 @@ def home_page():
     form = UserLogin()
     if form.validate_on_submit():
         print(form.data)
+        
         return redirect('/users/1')
     return render_template('home.html', form=form)
     
