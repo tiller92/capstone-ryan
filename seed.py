@@ -6,7 +6,7 @@ db.drop_all()
 db.create_all()
 
 
-user_one = Users(username='ryry', email='till@gmail.com')
+user_one = Users(username='ryry', email='till@gmail.com', password='1234')
 
 
 db.session.add(user_one)

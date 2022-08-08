@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+<form action='/logout' method='GET'>
+  <button class='btn btn-danger'>Logout</button>
+</form>
 <h1>test user home page {{username}}<h1>
 {% endblock %}

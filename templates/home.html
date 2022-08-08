@@ -1,8 +1,9 @@
 {% extends 'base.html' %} {% block content %}
 <div>
+
 <form method="POST">
 {{ form.csrf_token }}
- {% for field in form if field.widget.input_type != 'hidden' and field.name != 'password' %}
+ {% for field in form if field.widget.input_type != 'hidden'  %}
 
     <tr>
         <th>{{ field.label }}</th>
@@ -12,6 +13,9 @@
     <div class="edit-btn-area">
           <button class="btn btn-success">Sign In</button>
         </div>
+</form>
+<form action="/signup" method='GET'>
+<button href="/signup" class="btn btn-success">Sign Up</button>
 </form>
 </div>
 
