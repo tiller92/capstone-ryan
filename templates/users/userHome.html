@@ -3,5 +3,45 @@
 <form action='/logout' method='GET'>
   <button class='btn btn-danger'>Logout</button>
 </form>
-<h1>test user home page {{username}}<h1>
+<div>
+  <h3>You are Watching</h3>
+{% if watched_list %}
+<div>
+ <ul>
+ {% for watched in watched_list  %}
+  <li>
+    {{watched.name}}
+  </li>
+ {% endfor %}
+  </ul>
+</div>
+{% endif %}
+</div>
+<div>
+  <form method="POST">
+    {{ form.csrf_token }}
+     {% for field in form if field.widget.input_type != 'hidden'  %}
+    
+        <tr>
+            <th>{{ field.label }}</th>
+            <td>{{ field }}</td>
+        </tr>
+    {% endfor %}
+        <div class="edit-btn-area">
+              <button class="btn btn-success">Search</button>
+            </div>
+      </form>
+   
+  </div>
+  {% if reps%}
+  <ul>
+    {% for rep in reps  %}
+    <li>
+      <form method="POST" action='/api/add/watched/{{username}}/{{rep}}'>
+      {{rep}}<button>Add to Watched List</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
 {% endblock %}

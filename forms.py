@@ -22,4 +22,7 @@ class SignUpForm(FlaskForm):
   email = StringField('E-mail', validators=[DataRequired(), Email()])
   
 
-  
+class AddWatched(FlaskForm):
+  """add the info needed to track a congress member """
+  first_name = StringField('First Name', validators=[DataRequired()])
+  last_name = StringField('Last Name', validators=[DataRequired()])

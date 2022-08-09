@@ -30,10 +30,11 @@ class Watched(db.Model):
   __tablename__ = 'watched'
   
   id = db.Column(db.Integer, primary_key=True)
-  first_name = db.Column(db.String(80),nullable=False)
-  last_name = db.Column(db.String(80),nullable=False)
+  name = db.Column(db.String(80),nullable=False)
   user_id = db.Column(db.Integer ,db.ForeignKey('users.id'),nullable=False)
-  
+
+  def __repr__(self):
+    return '<watched %r>' % self.name
 
 class Transactions(db.Model):
   """ Specific transactions a user wants to track. Will relate to a Watched memeber"""

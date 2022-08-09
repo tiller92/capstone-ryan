@@ -1,6 +1,6 @@
 from base64 import encode
 from crypt import methods
-from forms import UserLogin, SignUpForm
+from forms import AddWatched, UserLogin, SignUpForm
 import os
 from urllib import response
 import requests
@@ -8,6 +8,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g,j
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import bcrypt
 from models import db, connect_db, Users,Transactions,Watched
+from helpers import transactions,search_by_name
 
 app = Flask(__name__)
 
@@ -87,12 +88,23 @@ def sign_up():
 ############################### User Routes #################
 @app.route('/users/<username>' ,methods=['POST', 'GET'])
 def user_page(username):
-    print(username, 'username')
-    return render_template('/users/userHome.html', username=username)
+    form = AddWatched()
+    u = Users.query.filter_by(username=username).first_or_404()
+    w = Watched.query.filter_by(user_id=u.id).all()
+    if form.validate_on_submit() and request.method == "POST":
+        first_name = form.data['first_name']
+        last_name = form.data['last_name']
+        reps = search_by_name(first_name, last_name)
+        return render_template('/users/userHome.html', username=username,form=form, reps=reps,watched_list=w)
+    return render_template('/users/userHome.html', username=username,form=form, watched_list=w)
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You Logged out')
+    return redirect('/')
 
-
-
+################### consumable API routes here ##############
 @app.route('/api/stockwatcher')
 def api_call():
    # test api calls
@@ -108,12 +120,22 @@ def api_call():
     print(len(trans_dict))
     return 
 
+@app.route('/api/add/watched/<username>/<rep>', methods=["Get", "POST"])
+def add_to_watch(username,rep):
+    """upated users watched list"""
+    print(username,rep)
+    info = rep
+    print(info)
+    ## would be better if you already had the use ID
+    user = Users.query.filter_by(username=username).first_or_404()
+    new_watched = Watched(name=info,user_id=user.id)
+    try:
+        db.session.add(new_watched)
+        db.session.commit()
+    except:
+        print('somthing went wrong')
+    return redirect(f'/users/{username}')
 
-@app.route('/logout')
-def logout():
-    logout_user()
-    flash('You Logged out')
-    return redirect('/')
 
 
 #################### test routes #############
