@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action='/logout' method='GET'>
-  <button class='btn btn-danger'>Logout</button>
-</form>
-<div>
+<div class='d-flex justify-content-center'>
   <h3>You are Watching</h3>
 {% if watched_list %}
 <div>
@@ -11,13 +8,20 @@
  {% for watched in watched_list  %}
   <li>
     {{watched.name}}
+    <form method='GET' action='/{{username}}/{{watched.name}}/trans'>
+    <button class='btn btn-info'>transactions</button>
+    </form>
+    <form method='DELETE' action='/{{username}}/{{watched.name}}/delete'>
+      <button class='btn btn-danger'>Delete</button>
+      </form>
   </li>
  {% endfor %}
   </ul>
 </div>
 {% endif %}
 </div>
-<div>
+<div class='d-flex justify-content-center'>
+  <h3>Searh for Congress Members</h3>
   <form method="POST">
     {{ form.csrf_token }}
      {% for field in form if field.widget.input_type != 'hidden'  %}
@@ -31,17 +35,17 @@
               <button class="btn btn-success">Search</button>
             </div>
       </form>
-   
-  </div>
+  
   {% if reps%}
-  <ul>
+  <ul class="list">
     {% for rep in reps  %}
     <li>
       <form method="POST" action='/api/add/watched/{{username}}/{{rep}}'>
-      {{rep}}<button>Add to Watched List</button>
+      {{rep}}<button class='btn btn-info'>Add to Watched List</button>
       </form>
     </li>
     {% endfor %}
   </ul>
+</div>
   {% endif %}
 {% endblock %}

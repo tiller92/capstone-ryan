@@ -8,12 +8,12 @@ def transactions():
   r = requests.get('https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json')
   transactions = r.text
   trans_dict = json.loads(transactions)
-  # print(trans_dict)
   for trans in trans_dict:
-    if trans['disclosure_year'] == 2022:
-      print(trans['disclosure_year'])
-      
-  return True
+    if 'John' in trans['representative']:
+      print('works')
+      print(trans)
+  # print(trans_dict)
+  return trans_dict
 
 def search_by_name(first, last):
   r = requests.get('https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json')

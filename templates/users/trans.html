@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+<form action='/users/{{username}}' method='GET'>
+  <button class='btn btn-info'>Home</button>
+</form>
+</div>
+<div>
+  <h3>Transactions for {{rep}}</h3>
+  <ul>
+  {% for tran in trans_list  %}
+  <li>
+    Asset: {{tran['asset_description']}},
+    Ticker: {{tran['ticker']}}
+    Amount: {{tran['amount']}},
+    transaction_date: {{tran['transaction_date']}}
+    disclosure_year: {{tran['disclosure_year']}},
+    disclosure_date: {{tran['disclosure_date']}},
+    Type: {{tran['type']}}
+  </li>
+  {% endfor %}
+</ul>
+</div>
+
+{% endblock  %}
+

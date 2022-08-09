@@ -20,7 +20,6 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
 
 connect_db(app)
-db = SQLAlchemy(app)
 
 CURR_USER_KEY = "curr_user"
 
@@ -85,7 +84,7 @@ def sign_up():
     return render_template('signup.html', form=form)
     
 
-############################### User Routes #################
+############################### User Routes AND CRUD  #################
 @app.route('/users/<username>' ,methods=['POST', 'GET'])
 def user_page(username):
     form = AddWatched()
@@ -95,8 +94,19 @@ def user_page(username):
         first_name = form.data['first_name']
         last_name = form.data['last_name']
         reps = search_by_name(first_name, last_name)
+        db.session.commit()
         return render_template('/users/userHome.html', username=username,form=form, reps=reps,watched_list=w)
+    db.session.commit()
     return render_template('/users/userHome.html', username=username,form=form, watched_list=w)
+
+@app.route('/<username>/<rep>/delete', methods=['DELETE',"GET"])
+def delete_from_db(username,rep):
+    """deletes from DB"""
+    user= Users.query.filter_by(username=username).first_or_404()
+    w = Watched.query.filter_by(name=rep,user_id=user.id).first_or_404()
+    db.session.delete(w)
+    db.session.commit()
+    return redirect(f'/users/{username}')
 
 @app.route('/logout')
 def logout():
@@ -114,10 +124,6 @@ def api_call():
     res_data = requests.get('https://house-stock-watcher-data.s3-us-west-2.amazonaws.com')
     transactions = res_trans.text
     trans_dict = json.loads(transactions)
-    for i in range(10):
-        print(trans_dict[i])
-    print(type(trans_dict))
-    print(len(trans_dict))
     return 
 
 @app.route('/api/add/watched/<username>/<rep>', methods=["Get", "POST"])
@@ -136,7 +142,16 @@ def add_to_watch(username,rep):
         print('somthing went wrong')
     return redirect(f'/users/{username}')
 
-
+@app.route('/<username>/<rep>/trans',methods=['GET','POST'])
+def show_tran(username,rep):
+    trans = transactions()
+    print(rep, username)
+    trans_list = []
+    for tran in trans:
+        if rep in tran['representative']:
+            trans_list.append(tran)
+            print(tran['representative'])
+    return render_template('/users/trans.html', trans_list=trans_list,rep=rep,username=username)
 
 #################### test routes #############
 
