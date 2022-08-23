@@ -128,9 +128,7 @@ def api_call():
 @app.route('/api/add/watched/<username>/<rep>', methods=["Get", "POST"])
 def add_to_watch(username,rep):
     """upated users watched list"""
-    print(username,rep)
     info = rep
-    print(info)
     ## would be better if you already had the user ID
     user = Users.query.filter_by(username=username).first_or_404()
     new_watched = Watched(name=info,user_id=user.id)
@@ -144,12 +142,10 @@ def add_to_watch(username,rep):
 @app.route('/<username>/<rep>/trans',methods=['GET','POST'])
 def show_tran(username,rep):
     trans = transactions()
-    print(rep, username)
     trans_list = []
     for tran in trans:
         if rep in tran['representative']:
             trans_list.append(tran)
-            print(tran['representative'])
     return render_template('/users/trans.html', trans_list=trans_list,rep=rep,username=username)
 
 #################### test routes #############
