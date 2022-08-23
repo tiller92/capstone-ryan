@@ -25,19 +25,3 @@ def search_by_name(first, last):
       reps.add(trans['representative'])
    
   return reps
-
-# {
-#   'disclosure_year': 2020,
-#   'disclosure_date': '01/10/2020',
-#   'transaction_date': '2019-12-06',
-#   'owner': None,
-#   'ticker': 'ADS',
-#   'asset_description': 'Alliance data Systems Corporation',
-#   'type': 'sale_full', 
-#   'amount': '$1,001 - $15,000',
-#   'representative': 'Hon. Gilbert Cisneros',
-#   'district': 'CA39',
-#   'ptr_link':
-#   'https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2020/20013867.pdf',
-#   'cap_gains_over_200_usd': False
-#   },

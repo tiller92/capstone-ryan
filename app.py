@@ -50,7 +50,7 @@ def logout_user():
 
 ############################### Home Pag, Login and Sign Up routes ##############
 @app.route('/', methods=["GET", "POST"])
-def home_page():
+def home_page():    
     users = Users.query.all()
     form = UserLogin()
     if form.validate_on_submit():
@@ -60,10 +60,9 @@ def home_page():
         print(password, hashed)
         if bcrypt.checkpw(password, hashed):
             login_user(user)
-            print('user logged in')
             return redirect(f'/users/{user.username}')
         else:
-            print('wrong password')
+            return redirect('/')
     return render_template('home.html', form=form)
 
 
@@ -132,7 +131,7 @@ def add_to_watch(username,rep):
     print(username,rep)
     info = rep
     print(info)
-    ## would be better if you already had the use ID
+    ## would be better if you already had the user ID
     user = Users.query.filter_by(username=username).first_or_404()
     new_watched = Watched(name=info,user_id=user.id)
     try:
