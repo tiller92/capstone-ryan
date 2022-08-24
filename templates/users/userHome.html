@@ -3,12 +3,12 @@
 <div class='d-flex justify-content-center'>
   <h3>You are Watching</h3>
 </div>
-<div class='d-flex justify-content-center'>
+<div class='d-flex justify-content-center' >
 {% if watched_list %}
-<div class="p-3">
- <ul class='list-group'>
+<div class="p-2">
+ <ul class='list-group list-group-flush'>
  {% for watched in watched_list  %}
-  <li class="p-2 m-1 list-group-item">
+  <li class="p-1 m-2 list-group-item d-flex  justify-content-center">
     {{watched.name}}
     <form
      method='GET' action='/{{username}}/{{watched.name}}/trans'>
@@ -24,7 +24,7 @@
 {% endif %}
 </div>
 <div class='d-flex justify-content-center p-3'>
-  <h3>Searh for Congress Members</h3>
+  <h3 class='m-2'>Searh for Congress Members</h3>
 </div>
 <div class='d-flex justify-content-center'>
   <form method="POST">
@@ -40,13 +40,14 @@
               <button class="btn btn-success">Search</button>
             </div>
       </form>
-  
+    </div>
   {% if reps%}
-  <ul class="list">
+  <div class='d-flex justify-content-center'>
+  <ul class="list-group list-group-flush">
     {% for rep in reps  %}
-    <li>
+    <li class='list-group-item'>
       <form method="POST" action='/api/add/watched/{{username}}/{{rep}}'>
-      {{rep}}<button class='btn btn-info'>Add to Watched List</button>
+      {{rep}}<button class='btn border border-2 m-2 '>Add to Watching</button>
       </form>
     </li>
     {% endfor %}
