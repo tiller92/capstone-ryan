@@ -1,25 +1,58 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Congress Stock tracker</title>
+  <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+        <!-- CSS only -->
+        <link rel= "stylesheet" type= "text/css" href='../../static/styles/base.css'>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</head>
+<body class="">
+  <div class='d-flex justify-content-center'>
+      <a href="/" class="navbar-brand">
+        <h3 id='congress'>Congress Stock Purchase Tracker</h3>
+      </a>
+      
+    </div>
+    <div class='fixed-top d-flex justify-content-end p-3'>
+      {% if username%}
+      <a href="/logout" class="navbar-brand">
+        <span class=''>Logout</span>
+      </a>
+      {%endif%}
+    </div>
 {% block content %}
-<div>
-<form action='/users/{{username}}' method='GET'>
-  <button class='btn border'>Back</button>
-</form>
-<form action='/{{username}}/{{rep}}/trans' method='GET'>
-  <input type='hidden' name='filter' value='tdate' />
-  <button class='btn border'>filter by transaction date</button>
-</form>
+<div class='d-flex justify-content-center'>
+<h3 class='p-2 m-1'>Transactions for {{rep}}</h3>
 </div>
-<div>
-  <h3 class='p-2 m-1'>Transactions for {{rep}}</h3>
+<div class='d-flex justify-content-center'>
+  <form action='/users/{{username}}' method='GET'>
+    <button class='btn border m-1'>Back</button>
+  </form>
+  <form action='/{{username}}/{{rep}}/trans' method='GET'>
+    <input type='hidden' name='filter' value='tdate' />
+    <button class='btn border m-1'>Filter by transaction date</button>
+  </form>
+  </div>
+<div class='d-flex justify-content-center'>
   <ul class='list-group m-1 p-3'>
   {% for tran in trans_list  %}
   <li class='list-group-item'>
-    transaction_date: {{tran['transaction_date']}},
+    Transaction Date: {{tran['transaction_date']}},
     Asset: {{tran['asset_description']}},
     Ticker: {{tran['ticker']}},
     Amount: {{tran['amount']}},
-    disclosure_year: {{tran['disclosure_year']}},
-    disclosure_date: {{tran['disclosure_date']}},
+    Disclosure Year: {{tran['disclosure_year']}},
+    Disclosure Date: {{tran['disclosure_date']}},
     Type: {{tran['type']}}
   </li>
   {% endfor %}
@@ -27,4 +60,6 @@
 </div>
 
 {% endblock  %}
-
+</div>
+</body>
+</html>  

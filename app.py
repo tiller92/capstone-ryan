@@ -106,6 +106,22 @@ def user_page(username):
     db.session.commit()
     return render_template('/users/userHome.html', username=username,form=form, watched_list=w)
 
+@app.route('/<username>/<rep>/trans',methods=['GET','POST'])
+def show_tran(username,rep):
+    """Needs to return a list of transactions."""
+    trans = transactions()
+    trans_list = []
+    for tran in trans:
+        if rep in tran['representative']:
+                trans_list.append(tran)
+    ## if user wants filter time complexity moves from o(n) to o(n^6)
+    if request.args.get('filter'): 
+        filter_trans = filterByTransactionDate(trans_list)
+        return render_template('/users/trans.html', trans_list=filter_trans,rep=rep,username=username)
+    else:
+        return render_template('/users/trans.html', trans_list=trans_list,rep=rep,username=username)
+
+
 @app.route('/<username>/<rep>/delete', methods=['DELETE',"GET"])
 def delete_from_db(username,rep):
     """deletes from DB"""
@@ -147,20 +163,6 @@ def add_to_watch(username,rep):
         print('somthing went wrong')
     return redirect(f'/users/{username}')
 
-@app.route('/<username>/<rep>/trans',methods=['GET','POST'])
-def show_tran(username,rep):
-    """Needs to return a list of transactions."""
-    trans = transactions()
-    trans_list = []
-    for tran in trans:
-        if rep in tran['representative']:
-                trans_list.append(tran)
-    ## if user wants filter time complexity moves from o(n) to o(n^6)
-    if request.args.get('filter'): 
-        filter_trans = filterByTransactionDate(trans_list)
-        return render_template('/users/trans.html', trans_list=filter_trans,rep=rep,username=username)
-    else:
-        return render_template('/users/trans.html', trans_list=trans_list,rep=rep,username=username)
 
 #################### test routes #############
 
