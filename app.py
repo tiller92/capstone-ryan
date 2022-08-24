@@ -8,7 +8,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g,j
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import bcrypt
 from models import db, connect_db, Users,Transactions,Watched
-from helpers import transactions,search_by_name
+from helpers import transactions,search_by_name, filterByTransactionDate
 
 app = Flask(__name__)
 
@@ -53,15 +53,19 @@ def logout_user():
 def home_page():    
     users = Users.query.all()
     form = UserLogin()
+    
     if form.validate_on_submit():
-        user = Users.query.filter_by(username=form.data['username']).first_or_404()
-        password = form.data['password'].encode('utf-8')
-        hashed = user.password.encode('utf-8')
-        print(password, hashed)
-        if bcrypt.checkpw(password, hashed):
-            login_user(user)
-            return redirect(f'/users/{user.username}')
-        else:
+        try:
+            user = Users.query.filter_by(username=form.data['username']).first_or_404()
+            password = form.data['password'].encode('utf-8')
+            hashed = user.password.encode('utf-8')
+            print(password, hashed)
+            if bcrypt.checkpw(password, hashed):
+                login_user(user)
+                return redirect(f'/users/{user.username}')
+            else:
+                return redirect('/')
+        except:
             return redirect('/')
     return render_template('home.html', form=form)
 
@@ -70,16 +74,20 @@ def home_page():
 def sign_up():
     form = SignUpForm()
     if form.validate_on_submit() and request.method == "POST":
-        password = form.data['password']
+        try:
+            password = form.data['password']
         # work factor defaults to 12
-        hashed_pwd = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+            hashed_pwd = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         # update db with user and user info
-        new_user = Users(username=form.data['username'],password=hashed_pwd.decode('utf-8'),email=form.data['email'])
-        db.session.add(new_user)
-        db.session.commit()
-        username = form.data['username']
-        flash('New User Created')
-        return redirect(f'/users/{username}')
+            new_user = Users(username=form.data['username'],password=hashed_pwd.decode('utf-8'),email=form.data['email'])
+            db.session.add(new_user)
+            db.session.commit()
+            username = form.data['username']
+            flash('New User Created')
+            return redirect(f'/users/{username}')
+        except:
+            ## should probably flash an error here
+            redirect('/signup')
     return render_template('signup.html', form=form)
     
 
@@ -141,12 +149,18 @@ def add_to_watch(username,rep):
 
 @app.route('/<username>/<rep>/trans',methods=['GET','POST'])
 def show_tran(username,rep):
+    """Needs to return a list of transactions."""
     trans = transactions()
     trans_list = []
     for tran in trans:
         if rep in tran['representative']:
-            trans_list.append(tran)
-    return render_template('/users/trans.html', trans_list=trans_list,rep=rep,username=username)
+                trans_list.append(tran)
+    ## if user wants filter time complexity moves from o(n) to o(n^6)
+    if request.args.get('filter'): 
+        filter_trans = filterByTransactionDate(trans_list)
+        return render_template('/users/trans.html', trans_list=filter_trans,rep=rep,username=username)
+    else:
+        return render_template('/users/trans.html', trans_list=trans_list,rep=rep,username=username)
 
 #################### test routes #############
 

@@ -6,13 +6,13 @@
 <div class='d-flex justify-content-center'>
 {% if watched_list %}
 <div class="p-3">
- <ul>
+ <ul class='list-group'>
  {% for watched in watched_list  %}
-  <li class="p-2 m-1">
+  <li class="p-2 m-1 list-group-item">
     {{watched.name}}
     <form
      method='GET' action='/{{username}}/{{watched.name}}/trans'>
-    <button class='btn border m-1'>transactions</button>
+    <button class='btn border m-1'>Transactions</button>
     </form>
     <form method='DELETE' action='/{{username}}/{{watched.name}}/delete'>
       <button class='btn btn-danger m-1'>Remove</button>

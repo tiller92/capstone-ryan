@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block content %}
-<div class='d-flex justify-content-center m-3'>
+<img src='/static/bull-stock.jpeg' alt='Big Bull' class='position-absolute mw-100 opacity-50'>
+<div class='d-flex justify-content-center m-3 position-relative'>
 <form method="POST">
 {{ form.csrf_token }}
  {% for field in form if field.widget.input_type != 'hidden'  %}
@@ -19,6 +20,5 @@
 </form>
 </div>
 </div>
-
 
 {% endblock %}

@@ -2,18 +2,22 @@
 {% block content %}
 <div>
 <form action='/users/{{username}}' method='GET'>
-  <button class='btn btn-info'>Home</button>
+  <button class='btn border'>Back</button>
+</form>
+<form action='/{{username}}/{{rep}}/trans' method='GET'>
+  <input type='hidden' name='filter' value='tdate' />
+  <button class='btn border'>filter by transaction date</button>
 </form>
 </div>
 <div>
-  <h3>Transactions for {{rep}}</h3>
-  <ul>
+  <h3 class='p-2 m-1'>Transactions for {{rep}}</h3>
+  <ul class='list-group m-1 p-3'>
   {% for tran in trans_list  %}
-  <li>
+  <li class='list-group-item'>
+    transaction_date: {{tran['transaction_date']}},
     Asset: {{tran['asset_description']}},
-    Ticker: {{tran['ticker']}}
+    Ticker: {{tran['ticker']}},
     Amount: {{tran['amount']}},
-    transaction_date: {{tran['transaction_date']}}
     disclosure_year: {{tran['disclosure_year']}},
     disclosure_date: {{tran['disclosure_date']}},
     Type: {{tran['type']}}
