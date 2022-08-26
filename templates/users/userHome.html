@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if watched_list %}
 <div class='d-flex justify-content-center'>
   <h3>You are Watching</h3>
 </div>
+{%endif%}
+{% if not watched_list %}
+<div class='d-flex justify-content-center'>
+  <h3>You aren't following any one yet</h3>
+</div>
+{%endif%}
 <div class='d-flex justify-content-center' >
 {% if watched_list %}
 <div class="p-2">

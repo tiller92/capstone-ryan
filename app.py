@@ -26,14 +26,12 @@ CURR_USER_KEY = "curr_user"
 ## user state
 @app.before_request
 def add_user_to_g():
-    """If we're logged in, add curr user to Flask global."""
-
+    """If logged in, add curr user to Flask global."""
     if CURR_USER_KEY in session:
         g.user = Users.query.get(session[CURR_USER_KEY])
 
     else:
         g.user = None
-
 
 def login_user(user):
     """Log in user."""
@@ -59,7 +57,6 @@ def home_page():
             user = Users.query.filter_by(username=form.data['username']).first_or_404()
             password = form.data['password'].encode('utf-8')
             hashed = user.password.encode('utf-8')
-            print(password, hashed)
             if bcrypt.checkpw(password, hashed):
                 login_user(user)
                 return redirect(f'/users/{user.username}')
@@ -83,10 +80,10 @@ def sign_up():
             db.session.add(new_user)
             db.session.commit()
             username = form.data['username']
-            flash('New User Created')
             return redirect(f'/users/{username}')
         except:
             ## should probably flash an error here
+            flash('username already exists')
             redirect('/signup')
     return render_template('signup.html', form=form)
     

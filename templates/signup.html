@@ -1,4 +1,13 @@
 {% extends 'base.html' %} {% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class='list-group'>
+    {% for message in messages %}
+      <li class='alert alert-danger' role='alert'>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 <div class='d-flex justify-content-center mt-5'>
 <span>Create an account</span>
 </div>
@@ -12,13 +21,13 @@
         </tr>
         {% endfor %}
         <div class='d-flex justify-content-center m-3'>
-            <button class="btn btn-success">Sign Up</button>
+            <button class="btn btn-success border">Sign Up</button>
         </div>
     </form>
 </div>
 <div class='d-flex justify-content-center m-2'>
     <form action='/' method='GET'>
-      <button class='btn btn-info'>Home</button>
+      <button class='btn border'>Home</button>
     </form>
     </div>
 {% endblock %}
