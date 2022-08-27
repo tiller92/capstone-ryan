@@ -34,12 +34,12 @@
   <h3 class='m-2'>Searh for Congress Members</h3>
 </div>
 <div class='d-flex justify-content-center position-relative'>
-  <form method="POST">
+  <form method="POST" class='fs-5'>
     {{ form.csrf_token }}
      {% for field in form if field.widget.input_type != 'hidden'  %}
     
         <tr>
-            <th>{{ field.label }}</th>
+            <th class>{{ field.label }}</th>
             <td>{{ field }}</td>
         </tr>
     {% endfor %}
