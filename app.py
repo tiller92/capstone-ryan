@@ -1,5 +1,3 @@
-from base64 import encode
-from crypt import methods
 from forms import AddWatched, UserLogin, SignUpForm
 import os
 from urllib import response
@@ -29,19 +27,15 @@ def add_user_to_g():
     """If logged in, add curr user to Flask global."""
     if CURR_USER_KEY in session:
         g.user = Users.query.get(session[CURR_USER_KEY])
-
     else:
         g.user = None
 
 def login_user(user):
     """Log in user."""
-
     session[CURR_USER_KEY] = user.id
-
 
 def logout_user():
     """Logout user."""
-
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 

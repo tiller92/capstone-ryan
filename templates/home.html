@@ -8,8 +8,7 @@
     </ul>
   {% endif %}
 {% endwith %}
-<img src='/static/bull-stock.jpeg' alt='Big Bull' class='position-absolute mw-100 opacity-50'>
-<div class='d-flex justify-content-center m-3 position-relative'>
+<div class='d-flex justify-content-center m-3 position-relative mt-5'>
 <form method="POST">
 {{ form.csrf_token }}
  {% for field in form if field.widget.input_type != 'hidden'  %}
