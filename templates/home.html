@@ -12,13 +12,12 @@
 <form method="POST">
 {{ form.csrf_token }}
  {% for field in form if field.widget.input_type != 'hidden'  %}
-
     <tr>
         <th>{{ field.label }}</th>
         <td>{{ field }}</td>
     </tr>
 {% endfor %}
-<div class='d-flex justify-content-center'>
+<div class='d-flex justify-content-center m-2'>
           <button class="btn btn-success m-2">Sign In</button>
 
 </form>
