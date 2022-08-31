@@ -8,10 +8,10 @@
     </ul>
   {% endif %}
 {% endwith %}
-<div class='d-flex justify-content-center mt-5'>
+<div class='d-flex justify-content-center m-5 position-relative'>
 <span>Create an account</span>
 </div>
-<div class='d-flex justify-content-center m-2'>
+<div class='d-flex justify-content-center m-1 position-relative'>
     <form action="/signup" method="POST">
         {{ form.csrf_token }} 
         {% for field in form if field.widget.input_type != 'hidden' %}
@@ -20,12 +20,12 @@
             <td>{{ field }}</td>
         </tr>
         {% endfor %}
-        <div class='d-flex justify-content-center m-3'>
+        <div class='d-flex justify-content-center m-4 position-relative'>
             <button class="btn btn-success border">Sign Up</button>
         </div>
     </form>
 </div>
-<div class='d-flex justify-content-center m-2'>
+<div class='d-flex justify-content-center m-2 position-relative'>
     <form action='/' method='GET'>
       <button class='btn border'>Home</button>
     </form>
