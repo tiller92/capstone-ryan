@@ -8,8 +8,9 @@ from helpers import transactions,search_by_name, filterByTransactionDate
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = (
-    os.environ.get('DATABASE_URL', 'postgres://ozytcibgghcnrf:66bd9f09f87426a91c9a08b1383a614aa47ea03f51f0f7d11f38618dc7362554@ec2-44-207-126-176.compute-1.amazonaws.com:5432/d70m2kn71hnkrg'))
+# app.config['SQLALCHEMY_DATABASE_URI'] = (
+#     os.environ.get('DATABASE_URL', 'postgres://ozytcibgghcnrf:66bd9f09f87426a91c9a08b1383a614aa47ea03f51f0f7d11f38618dc7362554@ec2-44-207-126-176.compute-1.amazonaws.com:5432/d70m2kn71hnkrg'))
+app.config['SQLALCHEMY_DATABASE_URI'] =  'postgres://ozytcibgghcnrf:66bd9f09f87426a91c9a08b1383a614aa47ea03f51f0f7d11f38618dc7362554@ec2-44-207-126-176.compute-1.amazonaws.com:5432/d70m2kn71hnkrg'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
