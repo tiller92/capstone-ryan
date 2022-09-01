@@ -41,7 +41,6 @@ def logout_user():
 ############################### Home Pag, Login and Sign Up routes ##############
 @app.route('/', methods=["GET", "POST"])
 def home_page():    
-    users = Users.query.all()
     form = UserLogin()
     
     if form.validate_on_submit():
