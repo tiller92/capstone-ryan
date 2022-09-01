@@ -1,9 +1,7 @@
 from forms import AddWatched, UserLogin, SignUpForm
 import os
-from urllib import response
 import requests
 from flask import Flask, render_template, request, flash, redirect, session, g,json
-from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import bcrypt
 from models import db, connect_db, Users,Transactions,Watched
 from helpers import transactions,search_by_name, filterByTransactionDate
