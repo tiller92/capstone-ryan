@@ -2,11 +2,11 @@ import os
 
 from unittest import TestCase
 
-from models import Transactions, db, Users, Watched
+from models import db, Users, Watched
 
 os.environ['DATABASE_URL'] = 'postgresql:///cap_test'
 
-from app import app, CURR_USER_KEY
+from app import app
 
 db.create_all()
 
