@@ -1,18 +1,27 @@
-/* h3 {
-    font-family: 'Abril Fatface', cursive;
-    font-family: 'Open Sans', sans-serif;
-    font-size: large;
-} */
-
-.bull {
-    opacity: 0.4;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: auto;
+@media (min-width:600px) {
+    .bull {
+        opacity: 1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0px;
+        height: auto;
+    }
+    .bull-wrap {
+        position: relative;
+    }
 }
 
-.bull-wrap {
-    position: relative;
+@media (min-width:1024px) {
+    .bull {
+        opacity: 0.4;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+    }
+    .bull-wrap {
+        position: relative;
+    }
 }
