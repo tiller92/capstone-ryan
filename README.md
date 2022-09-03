@@ -9,10 +9,11 @@ This Web Application leverages the https://housestockwatcher.com/api to allow us
 - Python
 - Flask (Framework)
 - SQLalchemy (ORM)
-- WTF Forms (CSR form validation)
 - Postgres (Database)
 - Heroku (Host) (until its no longer free :/ )
 - https://housestockwatcher.com/api (JSON API)
+- WTF Forms (CSFR form validation)
+- Bcrypt (password hashing)
 
 
 
